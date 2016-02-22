@@ -2,12 +2,14 @@
 
 namespace AppBundle\Entity\Repository;
 
+use Alex\Pagination\Adapter\DoctrineQueryBuilderAdapter;
+use Alex\Pagination\Pager;
 use AppBundle\Entity\JobOffer;
 use Doctrine\ORM\EntityRepository;
 
 class JobOfferRepository extends EntityRepository
 {
-    public function findMostRecentOffers($keywords = null)
+    public function findMostRecentOffers($keywords = null, $page = 1, $perPage = 15)
     {
         $builder = $this
             ->createQueryBuilder('j')
@@ -25,6 +27,10 @@ class JobOfferRepository extends EntityRepository
             ;
         }
 
-        return $builder->getQuery()->getResult();
+        $pager = new Pager(new DoctrineQueryBuilderAdapter($builder));
+        $pager->setPage($page);
+        $pager->setPerPage($perPage);
+
+        return $pager;
     }
 }

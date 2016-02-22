@@ -14,15 +14,16 @@ class JobOfferController extends Controller
      * @Route("/", name="app_homepage")
      * @Method("GET")
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
-        $jobs = $this
+        $pager = $this
             ->getDoctrine()
             ->getRepository('AppBundle:JobOffer')
-            ->findMostRecentOffers();
+            ->findMostRecentOffers(null, $request->query->getInt('page', 1));
 
         return $this->render('jobs/index.html.twig', [
-            'jobs' => $jobs,
+            'pager' => $pager,
+            'jobs' => $pager->getResults(),
         ]);
     }
 
@@ -48,13 +49,14 @@ class JobOfferController extends Controller
      */
     public function searchAction(Request $request)
     {
-        $jobs = $this
+        $pager = $this
             ->getDoctrine()
             ->getRepository('AppBundle:JobOffer')
-            ->findMostRecentOffers($request->get('keywords'));
+            ->findMostRecentOffers($request->get('keywords'), $request->query->getInt('page', 1));
 
         return $this->render('jobs/index.html.twig', [
-            'jobs' => $jobs,
+            'pager' => $pager,
+            'jobs' => $pager->getResults(),
         ]);
     }
 }

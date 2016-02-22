@@ -8,34 +8,45 @@
         <div class="span12">
             <h2>Recent jobs offers</h2>
             {% if jobs|length > 0 %}
+                
+                <ul>
+                    {% for page in pager.pageRange(2) %}
+                    <li>
+                        <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({ 'page': page})) }}">
+                            Page #{{ page }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                
                 <table class="table table-striped">
-                <tbody>
-                {% for job in jobs %}
-                    <tr>
-                        <td>
-                            <span class="label label-warning">
-                                {{- job.position -}}
-                            </span>
-                        </td>
-                        <td>
-                            <strong>
-                                <a href="{{ path('app_view_job', { 'id': job.id }) }}">
-                                    {{- job.title|title -}}
-                                </a>
-                            </strong>
-                            <br>
-                            Posted by <a href="#">{{ job.companyName }}</a>
-                        </td>
-                        <td>
-                            {{ job.city }}<br>
-                            {{ job.state is not empty ? job.state ~ ', ' : '' }}
-                            {{ job.country }}
-                        </td>
-                        <td>{{ job.createdAt|date }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    <tbody>
+                    {% for job in jobs %}
+                        <tr>
+                            <td>
+                                <span class="label label-warning">
+                                    {{- job.position -}}
+                                </span>
+                            </td>
+                            <td>
+                                <strong>
+                                    <a href="{{ path('app_view_job', { 'id': job.id }) }}">
+                                        {{- job.title|title -}}
+                                    </a>
+                                </strong>
+                                <br>
+                                Posted by <a href="#">{{ job.companyName }}</a>
+                            </td>
+                            <td>
+                                {{ job.city }}<br>
+                                {{ job.state is not empty ? job.state ~ ', ' : '' }}
+                                {{ job.country }}
+                            </td>
+                            <td>{{ job.createdAt|date }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             {% else %}
                 <p>
                     No job offers found!
