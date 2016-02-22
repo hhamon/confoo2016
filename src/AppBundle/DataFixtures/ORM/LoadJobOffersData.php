@@ -39,9 +39,75 @@ class LoadJobOffersData implements FixtureInterface
         );
         $job3->publish(45);
 
+        for ($i = 1; $i <= 150; $i++) {
+            $location = $this->getRandomLocation();
+            $jobX = new JobOffer(
+                $this->getRandomJobTitle(),
+                'This position is for a developer.',
+                $this->getRandomCompany(),
+                $location['city'],
+                $location['country'],
+                $location['state'],
+                $this->getRandomPosition()
+            );
+
+            if (rand(0, 1)) {
+                $jobX->publish(rand(30, 50));
+            }
+
+            $manager->persist($jobX);
+        }
+        
         $manager->persist($job1);
         $manager->persist($job2);
         $manager->persist($job3);
         $manager->flush();
+    }
+
+    private function getRandomCompany()
+    {
+        $companies = ['FooLab', 'Microsoft', 'Apple', 'SensioLabs', 'Oracle', 'IBM', 'Acquia'];
+        shuffle($companies);
+
+        return $companies[0];
+    }
+
+    private function getRandomJobTitle()
+    {
+        $titles = [
+            'Joomla Web Developer',
+            'Javascript Developer',
+            'HTML5/CSS3 Frontend Developer',
+            'PHP/Symfony Backend Developer',
+            'iOS/Swift developer',
+            'Java Androïd Developer',
+            'Drupal 8 Script Kiddy',
+        ];
+        shuffle($titles);
+        
+        return $titles[0];
+    }
+
+    private function getRandomLocation()
+    {
+        $locations[] = [ 'city' => 'Paris', 'state' => null, 'country' => 'France'];
+        $locations[] = [ 'city' => 'Montréal', 'state' => 'QC', 'country' => 'Canada'];
+        $locations[] = [ 'city' => 'Zurich', 'state' => null, 'country' => 'Switzerland'];
+        $locations[] = [ 'city' => 'New York', 'state' => 'NY', 'country' => 'United States'];
+        $locations[] = [ 'city' => 'Los Angeles', 'state' => 'CA', 'country' => 'United States'];
+        $locations[] = [ 'city' => 'San Francisco', 'state' => 'CA', 'country' => 'United States'];
+
+        $key = array_rand($locations);
+
+        return $locations[$key];
+    }
+
+    private function getRandomPosition()
+    {
+        $positions = [JobOffer::FREELANCE, JobOffer::FULL_TIME, JobOffer::PART_TIME, JobOffer::TEMPORARY];
+
+        shuffle($positions);
+
+        return $positions[0];
     }
 }
