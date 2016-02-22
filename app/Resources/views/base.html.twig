@@ -1,13 +1,261 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title 'Job Board' %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ asset('css/jobboard.css') }}" type="text/css">
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    <div class="home_wrapper">
+        <div class="container-fluid home_content">
+            <div class="row-fluid hero_bar"><!-- start hero -->
+                <div class="span12">
+                    <div class="row-fluid">
+                        <br>
+                        <div class="span9 offset1 home-hero">
+
+                            <div class="row-fluid">
+                                <div class="span11 offset1">
+                                    <div class="row-fluid">
+                                        <div class="span5">
+                                            <h3>I'm looking for...</h3>
+                                        </div>
+                                        <div class="span5">
+                                            <h3>Location</h3>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+
+                                        <div class="span5">
+                                            <input class="span12 search_input"
+                                                   placeholder="What type of job are you looking for?"
+                                                   type="text">
+                                        </div>
+
+                                        <div class="span4">
+                                            <select class="home_select">
+                                                <option selected="selected"
+                                                        value="0">London
+                                                </option>
+                                                <option value="0">Paris</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="span2">
+                                            <a class="btn btn-primary btn-success search_btn"
+                                               href="http://wbpreview.com/previews/WB0227870/browse.html">Search</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row-fluid">
+                                <div class="span12">
+
+                                    <div class="row-fluid">
+                                        <div class="span3 offset1">
+                                            <h3>Post a job</h3>
+                                            <a href="http://wbpreview.com/previews/WB0227870/post-job.html">Fast
+                                                and free, with upgrade
+                                                options</a><br>
+                                        </div>
+                                        <div class="span3 offset1">
+                                            <h3>Browse jobs</h3>
+                                            <a href="http://wbpreview.com/previews/WB0227870/browse.html">Find
+                                                the perfect job for you</a><br>
+                                        </div>
+                                        <div class="span3 offset1">
+                                            <h3>Register</h3>
+                                            <a href="http://wbpreview.com/previews/WB0227870/register.html">Apply
+                                                for jobs quickly and easily</a><br>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end hero -->
+        <div class="container-fluid home_main_content">
+            <div class="row-fluid">
+                <div class="span9">
+                    {% block body %}{% endblock %}
+                </div>
+                <div class="span3">
+                    <h2>&nbsp;</h2>
+                    <div class="row-fluid">
+                        <div class="span12 center">
+                            <a class="btn btn-primary btn-large post_job"
+                               href="http://wbpreview.com/previews/WB0227870/post-job.html">post
+                                a job<br>
+                                <small>(it's free!)</small>
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                    <h2>Browse jobs</h2>
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <select class="span12" id="job_term_cat"
+                                    name="job_term_cat">
+                                <option selected="selected" value="">Job
+                                    category...
+                                </option>
+                                <option value="38" class="level-0">Automotive
+                                </option>
+                                <option value="43" class="level-1">&nbsp;&nbsp;&nbsp;Electrical</option>
+                                <option value="40" class="level-1">&nbsp;&nbsp;&nbsp;Inspection</option>
+                                <option value="41" class="level-1">&nbsp;&nbsp;&nbsp;Painting</option>
+                                <option value="39" class="level-1">&nbsp;&nbsp;&nbsp;Service</option>
+                                <option value="42" class="level-1">&nbsp;&nbsp;&nbsp;Upholstry</option>
+                                <option value="20" class="level-0">Construction
+                                </option>
+                                <option value="29" class="level-1">&nbsp;&nbsp;&nbsp;Carpenter</option>
+                                <option value="44" class="level-1">&nbsp;&nbsp;&nbsp;Electrician</option>
+                                <option value="34" class="level-1">&nbsp;&nbsp;&nbsp;Flooring</option>
+                                <option value="36" class="level-1">&nbsp;&nbsp;&nbsp;Foundation
+                                    Repair
+                                </option>
+                                <option value="33" class="level-1">&nbsp;&nbsp;&nbsp;General
+                                    Maintence
+                                </option>
+                                <option value="37" class="level-1">&nbsp;&nbsp;&nbsp;Inspections</option>
+                                <option value="35" class="level-1">&nbsp;&nbsp;&nbsp;Insulation</option>
+                                <option value="31" class="level-1">&nbsp;&nbsp;&nbsp;Mason</option>
+                                <option value="32" class="level-1">&nbsp;&nbsp;&nbsp;Painter</option>
+                                <option value="30" class="level-1">&nbsp;&nbsp;&nbsp;Plumber</option>
+                                <option value="50" class="level-0">Fashion</option>
+                                <option value="23" class="level-0">Food Service
+                                </option>
+                                <option value="24" class="level-1">&nbsp;&nbsp;&nbsp;Bartender</option>
+                                <option value="28" class="level-1">&nbsp;&nbsp;&nbsp;Cook</option>
+                                <option value="25" class="level-1">&nbsp;&nbsp;&nbsp;Hosting</option>
+                                <option value="26" class="level-1">&nbsp;&nbsp;&nbsp;Waiter</option>
+                                <option value="21" class="level-0">Insurance
+                                </option>
+                                <option value="22" class="level-0">Realtors</option>
+                                <option value="19" class="level-0">Technology
+                                </option>
+                                <option value="45" class="level-1">&nbsp;&nbsp;&nbsp;Engineering</option>
+                                <option value="46" class="level-1">&nbsp;&nbsp;&nbsp;Programming</option>
+                                <option value="47" class="level-1">&nbsp;&nbsp;&nbsp;Sys
+                                    Admin
+                                </option>
+                            </select>
+
+
+                            <select id="job_type" name="job_type" class="span12">
+                                <option selected="selected">Job type...</option>
+                                <option>&nbsp;&nbsp;&nbsp;Freelance</option>
+                                <option>&nbsp;&nbsp;&nbsp;Full-Time</option>
+                                <option>&nbsp;&nbsp;&nbsp;Internship</option>
+                                <option>&nbsp;&nbsp;&nbsp;Part-Time</option>
+                                <option>&nbsp;&nbsp;&nbsp;Temporary</option>
+                            </select>
+
+
+                            <select class="span12" id="job_term_salary"
+                                    name="job_term_salary">
+                                <option selected="selected" value="">Job salary...
+                                </option>
+                                <option value="9" class="level-0">&nbsp;&nbsp;&nbsp;Less
+                                    than 20,000
+                                </option>
+                                <option value="10" class="level-0">&nbsp;&nbsp;&nbsp;20,000
+                                    – 40,000
+                                </option>
+                                <option value="11" class="level-0">&nbsp;&nbsp;&nbsp;40,000
+                                    – 60,000
+                                </option>
+                                <option value="12" class="level-0">&nbsp;&nbsp;&nbsp;60,000
+                                    – 80,000
+                                </option>
+                                <option value="13" class="level-0">&nbsp;&nbsp;&nbsp;80,000
+                                    – 100,000
+                                </option>
+                                <option value="14" class="level-0">&nbsp;&nbsp;&nbsp;100,000
+                                    and above
+                                </option>
+                            </select>
+
+                            <select class="span12" id="job_term_salary2"
+                                    name="job_term_salary2">
+                                <option selected="selected" value="">Date
+                                    posted...
+                                </option>
+                                <option value="">Today</option>
+                                <option value="">This week</option>
+                                <option value="">Last week</option>
+                                <option value="">This month</option>
+                            </select>
+
+                            <a class="btn btn-large pull-right search_btn"
+                               href="http://wbpreview.com/previews/WB0227870/browse.html">Search</a>
+
+                        </div>
+                    </div>
+                    <h2>Stay connected</h2>
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <ul class="social-icons">
+                                <li><a href="#"><i
+                                                class="icon-facebook-sign icon-2x"></i></a>
+                                </li>
+                                <li><a href="#"><i
+                                                class="icon-twitter-sign icon-2x"></i></a>
+                                </li>
+                                <li><a href="#"><i
+                                                class="icon-google-plus-sign icon-2x"></i></a>
+                                </li>
+                                <li><a href="#"><i
+                                                class="icon-linkedin-sign icon-2x"></i></a>
+                                </li>
+                                <li><a href="#"><i
+                                                class="icon-pinterest-sign icon-2x"></i></a>
+                                </li>
+                            </ul>
+                            <p>Stay connected to the latest jobs, events and career
+                                advice.</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div> <!-- /container -->
+    <footer>
+        <div class="container-fluid">
+            <div class="row-fluid footer_section_pre">
+                <div class="span12">
+                    <p class="copy center"><a
+                                href="http://wbpreview.com/previews/WB0227870/typography.html">Terms</a>
+                        |
+                        <a href="http://wbpreview.com/previews/WB0227870/typography.html">Privacy</a>
+                        |
+                        <a href="http://wbpreview.com/previews/WB0227870/typography.html">Typography</a>
+                        |
+                        <a href="http://wbpreview.com/previews/WB0227870/typography.html">About</a>
+                    </p>
+                    <p class="copy center">All content © 2013 <a
+                                href="http://appsarea.com/">AppsArea</a></p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% block javascripts %}{% endblock %}
     </body>
 </html>
