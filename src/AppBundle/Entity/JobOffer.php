@@ -7,15 +7,29 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
- * @Table(name="job_offers", uniqueConstraints={
- *   @UniqueConstraint(
- *     name="job_offer_token_unique",
- *     columns="token"
- *   )
- * })
+ * @Table(
+ *   name="job_offers",
+ *   uniqueConstraints={
+ *     @UniqueConstraint(
+ *       name="job_offer_token_unique",
+ *       columns="token"
+ *     )
+ *   },
+ *   indexes={
+ *     @Index(
+ *       name="job_offer_search_index",
+ *       columns={ "title", "status", "expires_at", "company_name" }
+ *     ),
+ *     @Index(
+ *       name="job_offer_companies_index",
+ *       columns="company_name"
+ *     )
+ *   }
+ * )
  * @Entity(repositoryClass="AppBundle\Entity\Repository\JobOfferRepository")
  */
 class JobOffer

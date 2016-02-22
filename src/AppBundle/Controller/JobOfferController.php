@@ -10,6 +10,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class JobOfferController extends Controller
 {
+    public function companiesAction()
+    {
+        $companies = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:JobOffer')
+            ->findActiveCompanies();
+
+        return $this->render('jobs/companies.html.twig', ['companies' => $companies]);
+    }
+
     /**
      * @Route("/", name="app_homepage")
      * @Method("GET")

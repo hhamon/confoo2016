@@ -1,0 +1,15 @@
+<h2>Companies</h2>
+<div class="row-fluid">
+    <div class="span12">
+        <ul>
+            {% for company in companies %}
+                <li>
+                    <a href="{{ path('app_specific_search_jobs', {'keywords': company}) }}">
+                        {{- company -}}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<br>

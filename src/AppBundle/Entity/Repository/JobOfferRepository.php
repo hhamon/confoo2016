@@ -9,6 +9,24 @@ use Doctrine\ORM\EntityRepository;
 
 class JobOfferRepository extends EntityRepository
 {
+    public function findActiveCompanies()
+    {
+        $records = $this
+            ->createQueryBuilder('j')
+            ->select('j.companyName')
+            ->distinct()
+            ->orderBy('j.companyName', 'ASC')
+            ->getQuery()
+            ->getArrayResult();
+
+        $companies = [];
+        foreach ($records as $record) {
+            $companies[] = $record['companyName'];
+        }
+        
+        return $companies;
+    }
+
     public function findMostRecentOffers($keywords = null, $page = 1, $perPage = 15)
     {
         $builder = $this
@@ -22,7 +40,7 @@ class JobOfferRepository extends EntityRepository
 
         if ($keywords) {
             $builder
-                ->andWhere('j.title LIKE :keywords OR j.description LIKE :keywords')
+                ->andWhere('j.title LIKE :keywords OR j.description LIKE :keywords OR j.companyName LIKE :keywords')
                 ->setParameter('keywords', '%'.$keywords.'%')
             ;
         }
