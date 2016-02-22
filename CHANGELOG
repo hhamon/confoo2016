@@ -3,4 +3,6 @@ VERSION 0  RELEASE OF NEW VERSION 0.0.1
 =======================================
 
    Version 0.0 - Release of new version 0.0.1
+      22/02/2016 21:42  0.0.2  Release of new version 0.0.2
+         aa1a710 [app] assets version now depends on application version number.
       22/02/2016 21:38  0.0.1  initial release
