@@ -1,0 +1,23 @@
+vcs: git
+
+version-generator: semantic
+version-persister:
+    vcs-tag:
+        tag-prefix: v
+
+prerequisites:
+    working-copy-check: ~
+    display-last-changes: ~
+
+pre-release-actions:
+    changelog-update:
+        format: semantic
+        dump-commits: true
+        exclude-merge-commits: true
+    update-version-class:
+        class: app/AppKernel.php
+    vcs-commit: ~
+
+post-release-actions:
+    vcs-publish:
+        ask-confirmation: true
