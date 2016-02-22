@@ -22,8 +22,16 @@ class LoadJobOffersData implements FixtureInterface
             'Acquia'
         );
 
+        $job3 = new JobOffer(
+            'Joomla Developer',
+            'This position is for a PHP/Joomla developer.',
+            'Acquia'
+        );
+        $job3->publish(45);
+
         $manager->persist($job1);
         $manager->persist($job2);
+        $manager->persist($job3);
         $manager->flush();
     }
 }

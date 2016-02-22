@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
  *     columns="token"
  *   )
  * })
- * @Entity
+ * @Entity(repositoryClass="AppBundle\Entity\Repository\JobOfferRepository")
  */
 class JobOffer
 {
@@ -81,6 +81,12 @@ class JobOffer
         $this->status = 'DRAFT';
         $this->createdAt = new \DateTime();
         $this->expiresAt = new \DateTime('+30 days');
+    }
+
+    public function publish($days = 30)
+    {
+        $this->status = 'PUBLISHED';
+        $this->expiresAt = new \DateTime('+'. $days .' days');
     }
 
     public function getId()

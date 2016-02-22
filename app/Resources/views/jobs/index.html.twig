@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Our recent jobs offers' %}
+
+{% block body %}
+
+    <h1>{{ block('title') }}</h1>
+
+    {% for job in jobs %}
+        <div class="job-offer" id="job-{{ job.id }}">
+            <h2>{{ job.title|title }}</h2>
+            <p>{{ job.description|nl2br }}</p>
+            <p class="job-metas">
+                Posted by {{ job.companyName }} on
+                {{ job.createdAt|date('m/d/Y') }}.
+                <br/>
+                This offer is valid until {{ job.expiresAt|date('m/d/Y') }}.
+            </p>
+        </div>
+    {% else %}
+        <div class="job-offer">
+            There are no valid job offers!
+        </div>
+    {% endfor %}
+
+{% endblock %}
