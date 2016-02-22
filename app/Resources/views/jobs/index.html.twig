@@ -7,7 +7,8 @@
     <div class="row-fluid">
         <div class="span12">
             <h2>Recent jobs offers</h2>
-            <table class="table table-striped">
+            {% if jobs|length > 0 %}
+                <table class="table table-striped">
                 <tbody>
                 {% for job in jobs %}
                     <tr>
@@ -35,6 +36,11 @@
                 {% endfor %}
                 </tbody>
             </table>
+            {% else %}
+                <p>
+                    No job offers found!
+                </p>
+            {% endif %}
         </div>
     </div>
 

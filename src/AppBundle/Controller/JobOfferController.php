@@ -6,6 +6,7 @@ use AppBundle\Entity\JobOffer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class JobOfferController extends Controller
 {
@@ -42,10 +43,18 @@ class JobOfferController extends Controller
 
     /**
      * @Route("/search", name="app_search_jobs")
+     * @Route("/search/{keywords}", name="app_specific_search_jobs")
      * @Method("GET|POST")
      */
-    public function searchAction()
+    public function searchAction(Request $request)
     {
-        return $this->render('');
+        $jobs = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:JobOffer')
+            ->findMostRecentOffers($request->get('keywords'));
+
+        return $this->render('jobs/index.html.twig', [
+            'jobs' => $jobs,
+        ]);
     }
 }

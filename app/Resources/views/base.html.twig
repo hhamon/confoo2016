@@ -34,27 +34,27 @@
                                     </div>
 
                                     <div class="row-fluid">
-
-                                        <div class="span5">
-                                            <input class="span12 search_input"
-                                                   placeholder="What type of job are you looking for?"
-                                                   type="text">
-                                        </div>
-
-                                        <div class="span4">
-                                            <select class="home_select">
-                                                <option selected="selected"
-                                                        value="0">London
-                                                </option>
-                                                <option value="0">Paris</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="span2">
-                                            <a class="btn btn-primary btn-success search_btn"
-                                               href="http://wbpreview.com/previews/WB0227870/browse.html">Search</a>
-                                        </div>
-
+                                        <form action="{{ path('app_search_jobs') }}" method="post">
+                                            <div class="span5">
+                                                <input class="span12 search_input"
+                                                       placeholder="What type of job are you looking for?"
+                                                       type="text"
+                                                       name="keywords">
+                                            </div>
+    
+                                            <div class="span4">
+                                                <select name="location" class="home_select">
+                                                    <option selected="selected"
+                                                            value="0">London
+                                                    </option>
+                                                    <option value="0">Paris</option>
+                                                </select>
+                                            </div>
+    
+                                            <div class="span2">
+                                                <button class="btn btn-primary btn-success search_btn">Search</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
