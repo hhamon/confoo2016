@@ -13,13 +13,7 @@
                     {{- job.title|title -}}
                 </a>
             </h2>
-            <p>{{ job.description|nl2br }}</p>
-            <p class="job-metas">
-                Posted by {{ job.companyName }} on
-                {{ job.createdAt|date }}.
-                <br/>
-                This offer is valid until {{ job.expiresAt|date }}.
-            </p>
+            {{ include('jobs/metas.html.twig') }}
         </div>
     {% else %}
         <div class="job-offer">
