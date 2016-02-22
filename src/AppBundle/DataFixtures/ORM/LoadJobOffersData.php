@@ -13,19 +13,29 @@ class LoadJobOffersData implements FixtureInterface
         $job1 = new JobOffer(
             'Symfony Developer',
             'This position is for a PHP/Symfony developer.',
-            'SensioLabs'
+            'SensioLabs',
+            'London',
+            'United Kingdom'
         );
 
         $job2 = new JobOffer(
             'Drupal 8 Developer',
             'This position is for a PHP/Drupal 8 developer.',
-            'Acquia'
+            'Acquia',
+            'Los Angeles',
+            'United States',
+            'CA',
+            JobOffer::FREELANCE
         );
 
         $job3 = new JobOffer(
             'Joomla Developer',
             'This position is for a PHP/Joomla developer.',
-            'Acquia'
+            'Acquia',
+            'San Francisco',
+            'United States',
+            'CA',
+            JobOffer::PART_TIME
         );
         $job3->publish(45);
 

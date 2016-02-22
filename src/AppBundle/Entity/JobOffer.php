@@ -23,6 +23,11 @@ class JobOffer
     const DRAFT = 'DRAFT';
     const PUBLISHED = 'PUBLISHED';
 
+    const FULL_TIME = 'full-time';
+    const PART_TIME = 'part-time';
+    const FREELANCE = 'freelance';
+    const TEMPORARY = 'temporary';
+
     /**
      * @Column(type="smallint")
      * @Id
@@ -61,6 +66,26 @@ class JobOffer
     private $status;
 
     /**
+     * @Column(length=30)
+     */
+    private $position;
+
+    /**
+     * @Column(length=50)
+     */
+    private $city;
+
+    /**
+     * @Column(length=50, nullable=true)
+     */
+    private $state;
+
+    /**
+     * @Column(length=50)
+     */
+    private $country;
+
+    /**
      * @Column(type="datetime")
      */
     private $expiresAt;
@@ -70,7 +95,7 @@ class JobOffer
      */
     private $createdAt;
 
-    public function __construct($title, $description, $companyName, $companyLogo = null, $token = null)
+    public function __construct($title, $description, $companyName, $city, $country, $state = null, $position = self::FULL_TIME, $companyLogo = null, $token = null)
     {
         if (null === $token) {
             $token = md5(uniqid(mt_rand(0, 999999)).microtime());
@@ -82,6 +107,10 @@ class JobOffer
         $this->companyLogo = $companyLogo;
         $this->token = $token;
         $this->status = self::DRAFT;
+        $this->position = $position;
+        $this->city = $city;
+        $this->country = $country;
+        $this->state = $state;
         $this->createdAt = new \DateTime();
         $this->expiresAt = new \DateTime('+30 days');
     }
@@ -153,5 +182,25 @@ class JobOffer
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    public function getCountry()
+    {
+        return $this->country;
     }
 }
