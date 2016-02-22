@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Repository;
 
+use AppBundle\Entity\JobOffer;
 use Doctrine\ORM\EntityRepository;
 
 class JobOfferRepository extends EntityRepository
@@ -13,7 +14,7 @@ class JobOfferRepository extends EntityRepository
             ->where('j.status = :status')
             ->andWhere('j.expiresAt >= :today')
             ->orderBy('j.expiresAt', 'DESC')
-            ->setParameter('status', 'PUBLISHED')
+            ->setParameter('status', JobOffer::PUBLISHED)
             ->setParameter('today', date('Y-m-d'))
             ->getQuery();
 

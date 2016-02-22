@@ -20,6 +20,9 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
  */
 class JobOffer
 {
+    const DRAFT = 'DRAFT';
+    const PUBLISHED = 'PUBLISHED';
+
     /**
      * @Column(type="smallint")
      * @Id
@@ -78,15 +81,33 @@ class JobOffer
         $this->companyName = $companyName;
         $this->companyLogo = $companyLogo;
         $this->token = $token;
-        $this->status = 'DRAFT';
+        $this->status = self::DRAFT;
         $this->createdAt = new \DateTime();
         $this->expiresAt = new \DateTime('+30 days');
     }
 
     public function publish($days = 30)
     {
-        $this->status = 'PUBLISHED';
+        $this->status = self::PUBLISHED;
         $this->expiresAt = new \DateTime('+'. $days .' days');
+    }
+
+    private function isPublished()
+    {
+        return self::PUBLISHED === $this->status;
+    }
+
+    public function isActive()
+    {
+        return $this->isPublished() && !$this->isExpired();
+    }
+
+    public function isExpired()
+    {
+        $maxExpirationTime = strtotime('Y-m-d 23:59:59');
+        $offerExpirationTime = $this->expiresAt->format('U');
+
+        return $offerExpirationTime < $maxExpirationTime;
     }
 
     public function getId()

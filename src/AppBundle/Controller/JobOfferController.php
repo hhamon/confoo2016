@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\JobOffer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,9 +31,13 @@ class JobOfferController extends Controller
      * })
      * @Method("GET")
      */
-    public function viewAction($id)
+    public function viewAction(JobOffer $job)
     {
-        return $this->render('');
+        if (!$job->isActive()) {
+            throw $this->createNotFoundException(sprintf('Job offer #%u is not active.', $job->getId()));
+        }
+
+        return $this->render('jobs/job.html.twig', ['job' => $job]);
     }
 
     /**

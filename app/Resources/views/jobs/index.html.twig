@@ -8,13 +8,17 @@
 
     {% for job in jobs %}
         <div class="job-offer" id="job-{{ job.id }}">
-            <h2>{{ job.title|title }}</h2>
+            <h2>
+                <a href="{{ path('app_view_job', { 'id': job.id }) }}">
+                    {{- job.title|title -}}
+                </a>
+            </h2>
             <p>{{ job.description|nl2br }}</p>
             <p class="job-metas">
                 Posted by {{ job.companyName }} on
-                {{ job.createdAt|date('m/d/Y') }}.
+                {{ job.createdAt|date }}.
                 <br/>
-                This offer is valid until {{ job.expiresAt|date('m/d/Y') }}.
+                This offer is valid until {{ job.expiresAt|date }}.
             </p>
         </div>
     {% else %}
