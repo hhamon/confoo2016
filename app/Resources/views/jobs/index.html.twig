@@ -4,21 +4,38 @@
 
 {% block body %}
 
-    <h1>{{ block('title') }}</h1>
-
-    {% for job in jobs %}
-        <div class="job-offer" id="job-{{ job.id }}">
-            <h2>
-                <a href="{{ path('app_view_job', { 'id': job.id }) }}">
-                    {{- job.title|title -}}
-                </a>
-            </h2>
-            {{ include('jobs/metas.html.twig') }}
+    <div class="row-fluid">
+        <div class="span12">
+            <h2>Recent jobs offers</h2>
+            <table class="table table-striped">
+                <tbody>
+                {% for job in jobs %}
+                    <tr>
+                        <td>
+                            <span class="label label-warning">
+                                {{- job.position -}}
+                            </span>
+                        </td>
+                        <td>
+                            <strong>
+                                <a href="{{ path('app_view_job', { 'id': job.id }) }}">
+                                    {{- job.title|title -}}
+                                </a>
+                            </strong>
+                            <br>
+                            Posted by <a href="#">{{ job.companyName }}</a>
+                        </td>
+                        <td>
+                            {{ job.city }}<br>
+                            {{ job.state is not empty ? job.state ~ ', ' : '' }}
+                            {{ job.country }}
+                        </td>
+                        <td>{{ job.createdAt|date }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
-    {% else %}
-        <div class="job-offer">
-            There are no valid job offers!
-        </div>
-    {% endfor %}
+    </div>
 
 {% endblock %}
