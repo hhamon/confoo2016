@@ -1,4 +1,5 @@
 imports:
+    - { resource: version.xml }
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
@@ -22,7 +23,7 @@ framework:
     templating:
         engines: ['twig']
     assets:
-        version:     'v=%version%'
+        version:     'v=%app_version%'
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
