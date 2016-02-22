@@ -24,6 +24,13 @@ framework:
         engines: ['twig']
     assets:
         version:     'v=%app_version%'
+        packages:
+            static:
+                version: v=123
+                base_urls: ['http://static.mywebsite.com']
+            videos:
+                version: v=93847234
+                base_urls: ['http://videos.mywebsite.com']
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
