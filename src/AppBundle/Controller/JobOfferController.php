@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\JobOffer;
+use AppBundle\Form\JobApplicationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,6 +11,30 @@ use Symfony\Component\HttpFoundation\Request;
 
 class JobOfferController extends Controller
 {
+    /**
+     * @Route("/job/{id}/apply", name="app_apply_to_offer", requirements={ "id"="\d+" })
+     * @Method("GET|POST")
+     */
+    public function applyForJobOfferAction(Request $request, JobOffer $job)
+    {
+        if (!$job->isActive()) {
+            throw $this->createNotFoundException(sprintf('Job offer #%u is not active.', $job->getId()));
+        }
+
+        $form = $this->createForm(JobApplicationType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            var_dump($form->getData());
+            die;
+        }
+
+        return $this->render('jobs/apply.html.twig', [
+            'job' => $job,
+            'form' => $form->createView(),
+        ]);
+    }
+
     public function companiesAction()
     {
         $companies = $this

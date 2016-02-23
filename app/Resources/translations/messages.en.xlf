@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="212476c6de172cccc8dd9fa37ff132d6" resname="form.job_application.submit">
+        <source>form.job_application.submit</source>
+        <target>Apply for this job!</target>
+      </trans-unit>
+      <trans-unit id="3a1815fb1d575c837d6f9ef8b6d5036c" resname="Upload a resume">
+        <source>Upload a resume</source>
+        <target>Attach your resume</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -45,7 +45,7 @@ class JobApplication
     private $message;
 
     /**
-     * @Column
+     * @Column(nullable=true)
      */
     private $resume;
 

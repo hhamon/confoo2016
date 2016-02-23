@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'application' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title 'job.apply.title'|trans({ '%title%': job.title }) %}
+
+{% block body %}
+
+    <h1>{{ block('title') }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div>
+            <button type="submit">
+                {{ 'form.job_application.submit'|trans }}
+            </button>
+        </div>
+    {{ form_end(form) }}
+
+{% endblock %}
