@@ -10,6 +10,10 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @Table(name="job_applications")
@@ -32,16 +36,22 @@ class JobApplication
 
     /**
      * @Column(length=100)
+     * @NotBlank
+     * @Length(min=5, max=100)
      */
     private $candidateFullName;
 
     /**
      * @Column(length=100)
+     * @NotBlank
+     * @Email
      */
     private $candidateEmailAddress;
 
     /**
      * @Column(type="text")
+     * @NotBlank
+     * @Length(min=20)
      */
     private $message;
 
@@ -55,6 +65,13 @@ class JobApplication
      */
     private $createdAt;
 
+    /**
+     * @File(
+     *     mimeTypes={ "application/pdf", "application/x-pdf" },
+     *     mimeTypesMessage="Only PDF files are allowed.",
+     *     maxSize="2M"
+     * )
+     */
     private $uploadedResume;
 
     public static function createApplicationFor(JobOffer $jobOffer, $fullName, $emailAddress, $message, $resume = null)
