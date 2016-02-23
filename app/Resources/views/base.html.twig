@@ -91,6 +91,15 @@
         <div class="container-fluid home_main_content">
             <div class="row-fluid">
                 <div class="span9">
+                    {% if app.session.flashBag.has('notice') %}
+                        <div class="notice-flash-messages">
+                            <ul>
+                                {% for message in app.session.flashBag.get('notice') %}
+                                    <li>{{ message|trans }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                     {% block body %}{% endblock %}
                 </div>
                 <div class="span3">
