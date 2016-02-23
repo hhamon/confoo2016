@@ -7,8 +7,8 @@ use AppBundle\Form\JobApplicationType;
 use AppBundle\JobOffer\JobApplicationService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 class JobOfferController extends Controller
@@ -16,6 +16,7 @@ class JobOfferController extends Controller
     /**
      * @Route("/job/{id}/apply", name="app_apply_to_offer", requirements={ "id"="\d+" })
      * @Method("GET|POST")
+     * @Security("has_role('ROLE_USER')")
      */
     public function applyForJobOfferAction(Request $request, JobOffer $job)
     {

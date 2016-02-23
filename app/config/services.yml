@@ -1,4 +1,11 @@
 services:
+    app.login_form_authenticator:
+        class: 'AppBundle\Security\LoginFormGuardAuthenticator'
+        arguments:
+            - '@router'
+            - '@security.password_encoder'
+            - '@doctrine.orm.entity_manager'
+
     app.job_offer_cleaner:
         class: 'AppBundle\JobOffer\JobOfferCleaner'
         arguments:
