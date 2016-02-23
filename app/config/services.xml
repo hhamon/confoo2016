@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="app.job_application" class="AppBundle\JobOffer\JobApplicationService">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument>%resumes_dir%</argument>
+            <call method="fooBar">
+                <argument type="collection">
+                    <argument type="constant" key="foo">true</argument>
+                </argument>
+            </call>
+        </service>
+    </services>
+
+</container>

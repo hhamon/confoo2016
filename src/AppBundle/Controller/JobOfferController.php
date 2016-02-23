@@ -29,12 +29,7 @@ class JobOfferController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $service = new JobApplicationService(
-                $this->getDoctrine()->getManager(),
-                $this->getParameter('resumes_dir')
-            );
-
-            $service->createJobApplication($form->getData());
+            $this->get('app.job_application')->createJobApplication($form->getData());
             $this->addFlash('notice', 'Your job application has been received!');
 
             return $this->redirectToRoute('app_apply_to_offer', ['id' => $job->getId()]);
