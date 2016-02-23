@@ -2,9 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Index;
@@ -109,6 +112,11 @@ class JobOffer
      */
     private $createdAt;
 
+    /**
+     * @OneToMany(targetEntity="AppBundle\Entity\JobApplication", mappedBy="jobOffer")
+     */
+    private $applications;
+
     public function __construct($title, $description, $companyName, $city, $country, $state = null, $position = self::FULL_TIME, $companyLogo = null, $token = null)
     {
         if (null === $token) {
@@ -127,6 +135,19 @@ class JobOffer
         $this->state = $state;
         $this->createdAt = new \DateTime();
         $this->expiresAt = new \DateTime('+30 days');
+        $this->applications = new ArrayCollection();
+    }
+
+    public function getApplications()
+    {
+        return $this->applications;
+    }
+
+    public function addApplication(JobApplication $application)
+    {
+        if (!$this->applications->contains($application)) {
+            $this->applications->add($application);
+        }
     }
 
     public function publish($days = 30)
