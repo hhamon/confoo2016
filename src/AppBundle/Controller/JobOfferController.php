@@ -35,7 +35,7 @@ class JobOfferController extends Controller
                     md5(uniqid(mt_rand(0, 99999)).microtime()),
                     $file->guessExtension()
                 );
-                $file = $file->move($this->getParameter('kernel.root_dir').'/resumes', $name);
+                $file = $file->move($this->getParameter('resumes_dir'), $name);
                 $jobApplication->setResume($file->getBasename());
             }
 
