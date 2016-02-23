@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\JobOffer;
 use AppBundle\Form\JobApplicationType;
+use AppBundle\JobOffer\JobApplicationService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -28,21 +29,12 @@ class JobOfferController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $jobApplication = $form->getData();
-            /** @var UploadedFile $file */
-            if ($file = $jobApplication->getUploadedResume()) {
-                $name = sprintf('%s.%s',
-                    md5(uniqid(mt_rand(0, 99999)).microtime()),
-                    $file->guessExtension()
-                );
-                $file = $file->move($this->getParameter('resumes_dir'), $name);
-                $jobApplication->setResume($file->getBasename());
-            }
+            $service = new JobApplicationService(
+                $this->getDoctrine()->getManager(),
+                $this->getParameter('resumes_dir')
+            );
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($jobApplication);
-            $em->flush();
-
+            $service->createJobApplication($form->getData());
             $this->addFlash('notice', 'Your job application has been received!');
 
             return $this->redirectToRoute('app_apply_to_offer', ['id' => $job->getId()]);
