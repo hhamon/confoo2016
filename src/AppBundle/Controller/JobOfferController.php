@@ -7,6 +7,7 @@ use AppBundle\Form\JobApplicationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 class JobOfferController extends Controller
@@ -21,12 +22,30 @@ class JobOfferController extends Controller
             throw $this->createNotFoundException(sprintf('Job offer #%u is not active.', $job->getId()));
         }
 
-        $form = $this->createForm(JobApplicationType::class);
+        $form = $this->createForm(JobApplicationType::class, null, [
+            'job_offer' => $job,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            var_dump($form->getData());
-            die;
+            $jobApplication = $form->getData();
+            /** @var UploadedFile $file */
+            if ($file = $jobApplication->getUploadedResume()) {
+                $name = sprintf('%s.%s',
+                    md5(uniqid(mt_rand(0, 99999)).microtime()),
+                    $file->guessExtension()
+                );
+                $file = $file->move($this->getParameter('kernel.root_dir').'/resumes', $name);
+                $jobApplication->setResume($file->getBasename());
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($jobApplication);
+            $em->flush();
+
+            $this->addFlash('notice', 'Your job application has been received!');
+
+            return $this->redirectToRoute('app_apply_to_offer', ['id' => $job->getId()]);
         }
 
         return $this->render('jobs/apply.html.twig', [

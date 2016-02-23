@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Entity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @Table(name="job_applications")
@@ -54,6 +55,8 @@ class JobApplication
      */
     private $createdAt;
 
+    private $uploadedResume;
+
     public static function createApplicationFor(JobOffer $jobOffer, $fullName, $emailAddress, $message, $resume = null)
     {
         return new self($jobOffer, $fullName, $emailAddress, $message, $resume);
@@ -68,6 +71,21 @@ class JobApplication
         $this->message = $message;
         $this->resume = $resume;
         $this->createdAt = new \DateTime();
+    }
+
+    public function setResume($resume)
+    {
+        $this->resume = $resume;
+    }
+
+    public function setUploadedResume(UploadedFile $file)
+    {
+        $this->uploadedResume = $file;
+    }
+
+    public function getUploadedResume()
+    {
+        return $this->uploadedResume;
     }
 
     public function getId()

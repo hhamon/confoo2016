@@ -2,6 +2,8 @@
 /app/config/parameters.yml
 /build/
 /phpunit.xml
+/app/resumes/*
+!/app/resumes/.gitkeep
 /var/*
 !/var/cache
 /var/cache/*
