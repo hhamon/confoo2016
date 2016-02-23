@@ -1,4 +1,11 @@
 services:
+
+    app.resume_uploader:
+        class: 'AppBundle\JobOffer\ResumeFileUploader'
+        arguments: ['%resumes_dir%']
+
     app.job_application:
         class: 'AppBundle\JobOffer\JobApplicationService'
-        arguments: ['@doctrine.orm.entity_manager', '%resumes_dir%']
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@app.resume_uploader'

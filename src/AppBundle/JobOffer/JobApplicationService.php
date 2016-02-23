@@ -4,28 +4,22 @@ namespace AppBundle\JobOffer;
 
 use AppBundle\Entity\JobApplication;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class JobApplicationService
 {
-    private $uploadDirectory;
+    private $uploader;
     private $entityManager;
 
-    public function __construct(ObjectManager $manager, $uploadDirectory)
+    public function __construct(ObjectManager $manager, ResumeFileUploader $uploader)
     {
-        if (!is_writable($uploadDirectory)) {
-            throw new \RuntimeException(sprintf('Directory %s is not writable or doesn\'t exist!', $uploadDirectory));
-        }
-
         $this->entityManager = $manager;
-        $this->uploadDirectory = $uploadDirectory;
+        $this->uploader = $uploader;
     }
 
     public function createJobApplication(JobApplication $jobApplication)
     {
         if ($file = $jobApplication->getUploadedResume()) {
-            $name = $this->generateFilename($file);
-            $file = $file->move($this->uploadDirectory, $name);
+            $file = $this->uploader->uploadResume($file);
             $jobApplication->setResume($file->getBasename());
         }
 
@@ -33,11 +27,5 @@ class JobApplicationService
         $this->entityManager->flush();
     }
 
-    private function generateFilename(UploadedFile $file)
-    {
-        return sprintf('%s.%s',
-            md5(uniqid(mt_rand(0, 99999)).microtime()),
-            $file->guessExtension()
-        );
-    }
+    
 }
