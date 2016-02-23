@@ -139,4 +139,9 @@ class JobApplication
     {
         return $this->createdAt;
     }
+
+    public function getCompanyContactEmailAddress()
+    {
+        return $this->jobOffer->getContactEmailAddress();
+    }
 }

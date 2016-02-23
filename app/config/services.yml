@@ -9,3 +9,4 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@app.resume_uploader'
+            - '@mailer'

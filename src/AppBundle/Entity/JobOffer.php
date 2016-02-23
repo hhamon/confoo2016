@@ -78,6 +78,11 @@ class JobOffer
     private $companyLogo;
 
     /**
+     * @Column
+     */
+    private $contactEmailAddress;
+
+    /**
      * @Column(length=15)
      */
     private $status;
@@ -117,13 +122,14 @@ class JobOffer
      */
     private $applications;
 
-    public function __construct($title, $description, $companyName, $city, $country, $state = null, $position = self::FULL_TIME, $companyLogo = null, $token = null)
+    public function __construct($title, $description, $contactEmailAddress, $companyName, $city, $country, $state = null, $position = self::FULL_TIME, $companyLogo = null, $token = null)
     {
         if (null === $token) {
             $token = md5(uniqid(mt_rand(0, 999999)).microtime());
         }
 
         $this->title = $title;
+        $this->contactEmailAddress = $contactEmailAddress;
         $this->description = $description;
         $this->companyName = $companyName;
         $this->companyLogo = $companyLogo;
@@ -136,6 +142,11 @@ class JobOffer
         $this->createdAt = new \DateTime();
         $this->expiresAt = new \DateTime('+30 days');
         $this->applications = new ArrayCollection();
+    }
+
+    public function getContactEmailAddress()
+    {
+        return $this->contactEmailAddress;
     }
 
     public function getApplications()

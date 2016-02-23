@@ -13,6 +13,7 @@ class LoadJobOffersData implements FixtureInterface
         $job1 = new JobOffer(
             'Symfony Developer',
             'This position is for a PHP/Symfony developer.',
+            'hello@sensiolabs.com',
             'SensioLabs',
             'London',
             'United Kingdom'
@@ -21,6 +22,7 @@ class LoadJobOffersData implements FixtureInterface
         $job2 = new JobOffer(
             'Drupal 8 Developer',
             'This position is for a PHP/Drupal 8 developer.',
+            'contact@acquia.com',
             'Acquia',
             'Los Angeles',
             'United States',
@@ -31,6 +33,7 @@ class LoadJobOffersData implements FixtureInterface
         $job3 = new JobOffer(
             'Joomla Developer',
             'This position is for a PHP/Joomla developer.',
+            'contact@acquia.com',
             'Acquia',
             'San Francisco',
             'United States',
@@ -44,6 +47,7 @@ class LoadJobOffersData implements FixtureInterface
             $jobX = new JobOffer(
                 $this->getRandomJobTitle(),
                 'This position is for a developer.',
+                $this->getRandomEmailAddress(),
                 $this->getRandomCompany(),
                 $location['city'],
                 $location['country'],
@@ -109,5 +113,14 @@ class LoadJobOffersData implements FixtureInterface
         shuffle($positions);
 
         return $positions[0];
+    }
+
+    private function getRandomEmailAddress()
+    {
+        $emails = [ 'john.doe@example.com', 'foo.bar@localhost.net', 'noreply@hello.com'];
+
+        shuffle($emails);
+
+        return $emails[0];
     }
 }
