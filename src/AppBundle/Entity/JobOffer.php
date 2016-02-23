@@ -144,6 +144,11 @@ class JobOffer
         $this->applications = new ArrayCollection();
     }
 
+    public function expires($nbDays = 50)
+    {
+        $this->expiresAt = new \DateTime('-'.$nbDays.' days');
+    }
+
     public function getContactEmailAddress()
     {
         return $this->contactEmailAddress;
@@ -248,5 +253,19 @@ class JobOffer
     public function getCountry()
     {
         return $this->country;
+    }
+
+    public function getResumesFiles($resumesDirectory)
+    {
+        $files = [];
+        foreach ($this->applications as $application) {
+            if (!$resume = $application->getResume()) {
+                continue;
+            }
+    
+            $files[] = $resumesDirectory.'/'.$resume;
+        }
+
+        return $files;
     }
 }

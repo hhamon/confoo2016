@@ -1,4 +1,15 @@
 services:
+    app.job_offer_cleaner:
+        class: 'AppBundle\JobOffer\JobOfferCleaner'
+        arguments:
+            - '@app.repository.job_offer'
+            - '@filesystem'
+            - '%resumes_dir%'
+
+    app.repository.job_offer:
+        class: 'AppBundle\Entity\Repository\JobOfferRepository'
+        factory: ['@doctrine', 'getRepository']
+        arguments: ['AppBundle:JobOffer']
 
     app.resume_uploader:
         class: 'AppBundle\JobOffer\ResumeFileUploader'

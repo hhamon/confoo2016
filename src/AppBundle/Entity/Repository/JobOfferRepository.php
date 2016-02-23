@@ -51,4 +51,35 @@ class JobOfferRepository extends EntityRepository
 
         return $pager;
     }
+
+    public function findOutdatedOffers($company = null, $nbDays = 25)
+    {
+        $expiration = date('Y-m-d 23:59:59', strtotime('-'.$nbDays.' days'));
+
+        $qb = $this
+            ->createQueryBuilder('j')
+            ->select('j, a')
+            ->leftJoin('j.applications', 'a')
+            ->where('j.expiresAt < :expiration')
+            ->setParameter('expiration', $expiration)
+        ;
+
+        if (null !== $company) {
+            $qb
+                ->andWhere('j.companyName = :company')
+                ->setParameter('company', $company)
+            ;
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function deleteOffers($offers)
+    {
+        foreach ($offers as $offer) {
+            $this->_em->remove($offer);
+        }
+
+        $this->_em->flush();
+    }
 }

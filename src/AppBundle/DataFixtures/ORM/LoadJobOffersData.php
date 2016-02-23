@@ -42,6 +42,32 @@ class LoadJobOffersData implements FixtureInterface
         );
         $job3->publish(45);
 
+        $job4 = new JobOffer(
+            'Expired Developer',
+            'Expired Description',
+            'expired@expired.com',
+            'Expired Company',
+            'San Francisco',
+            'United States',
+            'CA',
+            JobOffer::PART_TIME
+        );
+        $job4->publish(10);
+        $job4->expires(100);
+
+        $job5 = new JobOffer(
+            'Expired Developer',
+            'Expired Description',
+            'expired@expired.com',
+            'Expired Company',
+            'San Francisco',
+            'United States',
+            'CA',
+            JobOffer::PART_TIME
+        );
+        $job5->publish(10);
+        $job5->expires(100);
+
         for ($i = 1; $i <= 150; $i++) {
             $location = $this->getRandomLocation();
             $jobX = new JobOffer(
@@ -65,6 +91,8 @@ class LoadJobOffersData implements FixtureInterface
         $manager->persist($job1);
         $manager->persist($job2);
         $manager->persist($job3);
+        $manager->persist($job4);
+        $manager->persist($job5);
         $manager->flush();
     }
 
